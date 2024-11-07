@@ -66,24 +66,26 @@ def validar_lugar():
 def validar_voto():
     while True:
         try:
-            voto = input("Vote por 'Azul' o 'Rojo': ").strip().lower()
-            if voto == 'azul' or voto == 'rojo':
+            voto = input("Vote por 'Azul', 'Rojo', 'Blanco', 'Nulo': ").strip().lower()
+            if voto in ['azul', 'rojo', 'blanco', 'nulo']:
                 return voto.capitalize()  # Regresa el voto con la primera letra en mayuscula
             else:
-                print("Ingrese un voto válido ('Azul' o 'Rojo').")
+                print("Ingrese un voto válido ('Azul', 'Rojo', 'Blanco', 'Nulo'). ")
         except ValueError:
             print("Ocurrió un error, intente de nuevo.")
 
 def contar_votos(votantes):
-    conteo = {"Azul": 0, "Rojo": 0}
+    conteo = {"Azul": 0, "Rojo": 0, "Blanco": 0, "Nulo": 0}
     for votante in votantes:
         conteo[votante['Voto']] += 1
     return conteo
 
 def declarar_ganador(conteo):
     if conteo["Azul"] > conteo["Rojo"]:
+        conteo["Azul"] += conteo["Blanco"]
         return "Azul"
     elif conteo["Rojo"] > conteo["Azul"]:
+        conteo["Rojo"] += conteo["Blanco"]
         return "Rojo"
     else:
         return "Empate"
